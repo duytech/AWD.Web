@@ -1,0 +1,8 @@
+AWD.Web/.vs/
+AWD.Web/src/AWD.Web.Core/obj/Debug/
+AWD.Web/src/AWD.Web.Core/project.lock.json
+AWD.Web/src/AWD.Web.Core/bin/Debug/
+AWD.Web/src/AWD.Library/project.lock.json
+AWD.Web/src/AWD.Library/obj/Debug/
+AWD.Web/src/AWD.Library/bin/Debug/
+AWD.Web/src/AWD.Web.Common/project.lock.json
