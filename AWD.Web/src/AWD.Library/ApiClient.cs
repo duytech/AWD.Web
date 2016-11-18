@@ -6,6 +6,8 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Net;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace AWD.Library
 {
@@ -31,6 +33,18 @@ namespace AWD.Library
             if (result.StatusCode == HttpStatusCode.OK)
                 return await result.Content.ReadAsStringAsync();
 
+            return null;
+        }
+
+        public async Task<JToken> Post(string url, string content)
+        {
+            var postUrl = $"{_apiRoot.AbsoluteUri}{url}";
+
+            var result = await _httpClient.PostAsync(postUrl, new StringContent(content, Encoding.UTF8, "application/json"));
+            if (result.StatusCode == HttpStatusCode.OK)
+                return await result.Content.ReadAsStringAsync();
+
+            result.EnsureSuccessStatusCode();
             return null;
         }
     }

@@ -1,9 +1,15 @@
 {
   "dependencies": {
     "Microsoft.NETCore.App": {
-      "version": "1.0.1",
+      "version": "1.1.0",
       "type": "platform"
     },
+    "AWD.Library":{
+            "target":"project"
+        },
+    "AWD.Web.Common":{
+            "target":"project"
+        },
     "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
@@ -21,9 +27,7 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
-    "AWD.Library": "1.0.0-*",
-    "AWD.Web.Common": "1.0.0-*"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0"
   },
 
   "tools": {
@@ -33,15 +37,18 @@
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
+    "netcoreapp1.1": {
       "imports": [
         "dotnet5.6",
+        "dnxcore50",
         "portable-net45+win8"
       ]
     }
   },
 
   "buildOptions": {
+    // Currently, with .net core 1.1, on windows we still need this config for debugging.
+    "debugType": "portable",
     "emitEntryPoint": true,
     "preserveCompilationContext": true
   },

@@ -8,14 +8,16 @@ using AWD.Web.Core.ViewModels;
 using Microsoft.Extensions.Configuration;
 using AWD.Library;
 using AWD.Web.Common;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace AWD.Web.Core.Controllers
 {
     public class AccountController : Controller
     {
-        public ApplicationConfiguration _configuration { get; set; }
+        private IOptions<ApplicationConfiguration> _configuration;
 
-        public AccountController(ApplicationConfiguration config)
+        public AccountController(IOptions<ApplicationConfiguration> config)
         {
             _configuration = config;
         }
@@ -36,8 +38,9 @@ namespace AWD.Web.Core.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var apiClient = new ApiClient(new Uri(_configuration.BaseURL));
-                return View(model);   
+                var apiClient = new ApiClient(new Uri(_configuration.Value.BaseURL));
+                var result = await apiClient.Post("/api/account/token", JsonConvert.SerializeObject(new { username = model.Email, password = model.Password}));
+                return View(model);
             }
             // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             // If we got this far, something failed, redisplay form
