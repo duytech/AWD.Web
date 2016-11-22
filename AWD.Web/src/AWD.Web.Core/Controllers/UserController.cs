@@ -19,6 +19,7 @@ namespace AWD.Web.Core.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            //throw new Exception("hello");
             var result = CommonFuncs.Add(3, 4);
             return View(GetAll());
         }

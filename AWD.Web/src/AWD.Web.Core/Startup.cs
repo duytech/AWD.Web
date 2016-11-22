@@ -8,13 +8,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AWD.Web.Common;
+using AWD.Web.Core.Logging;
 
 namespace AWD.Web.Core
 {
     public class Startup
     {
+        private readonly string _basePath;
+
         public Startup(IHostingEnvironment env)
         {
+            _basePath = env.ContentRootPath;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -37,7 +41,10 @@ namespace AWD.Web.Core
             // Enable option pattern.
             services.AddOptions();
 
-            // Configure MyOptions using config by installing Microsoft.Extensions.Options.ConfigurationExtensions
+            //Enable logging.
+            services.AddLogging();
+
+            // Configure custom option using config by installing Microsoft.Extensions.Options.ConfigurationExtensions
             services.Configure<ApplicationConfiguration>(Configuration);
 
             // Add framework services.
@@ -49,8 +56,11 @@ namespace AWD.Web.Core
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // log info to console
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            // log info when in debugging mode
             loggerFactory.AddDebug();
+            loggerFactory.AddProvider(new FileLoggerProvider(_basePath, (_, logLevel) => logLevel >= LogLevel.Error));
 
             app.UseApplicationInsightsRequestTelemetry();
 

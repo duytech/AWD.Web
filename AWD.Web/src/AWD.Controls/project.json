@@ -1,20 +1,16 @@
 {
   "version": "1.0.0-*",
-
   "buildOptions": {
-    // Currently, with .net core 1.1, on windows we still need this config for debugging.
     "debugType": "portable"
   },
-
   "dependencies": {
-    "NETStandard.Library": "1.6.1",
-    "Newtonsoft.Json": "9.0.1",
     "Microsoft.AspNetCore.Mvc": "1.1.0"
   },
-
   "frameworks": {
     "netstandard1.6": {
-      "imports": "dnxcore50"
+      "dependencies": {
+        "NETStandard.Library": "1.6.1"
+      }
     }
   }
 }

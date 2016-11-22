@@ -8,3 +8,6 @@ AWD.Web/src/AWD.Library/bin/Debug/
 AWD.Web/src/AWD.Web.Common/project.lock.json
 AWD.Web/src/AWD.Web.Common/bin/Debug/
 AWD.Web/src/AWD.Web.Common/obj/Debug/
+AWD.Web/src/AWD.Controls/obj/Debug/
+AWD.Web/src/AWD.Controls/project.lock.json
+AWD.Web/src/AWD.Controls/bin/Debug/
